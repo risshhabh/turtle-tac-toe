@@ -1,7 +1,8 @@
 import turtle
 
-
+global board
 board = ["~"] * 10
+
 global master_coords
 master_coords = {
     1: (-180, 180),
@@ -104,8 +105,7 @@ def draw_piece(coords: tuple, who: bool, ln: int):
 
 # Keyboard bindings
 wn.listen()  # Listen for keyboard input.
-wn.onkeypress(turtle.bye, "q")
-wn.onkeypress(turtle, "1")
+wn.onkeypress(turtle.bye, "q")  # bye bye!
 # Using functools.partial
 ### wn.onkeypress(partial(func_with_args, arg1, arg2), "q")
 
