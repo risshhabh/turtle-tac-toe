@@ -1,10 +1,9 @@
 import turtle
 
-global board
-board = ["~"] * 10
 
-global master_coords
-master_coords = {
+board = ["~"] * 10
+turn = True  # X if True else O
+master_coords: dict[int, tuple] = {
     1: (-180, 180),
     2: (0, 180),
     3: (180, 180),
@@ -48,7 +47,9 @@ def border(side: bool, dr: bool, w=27, l=0.25, coord=90):
     out.speed(0)
     out.shape("square")
     out.color("white")
-    out.shapesize(stretch_wid=w, stretch_len=l) if dr else out.shapesize(stretch_wid=l, stretch_len=w)
+    out.shapesize(stretch_wid=w, stretch_len=l) if dr else out.shapesize(
+        stretch_wid=l, stretch_len=w
+    )
     out.penup()
     mult = 1 if side else -1
     out.goto(*((coord * mult, 0) if dr else (0, coord * mult)))
@@ -60,9 +61,34 @@ def border(side: bool, dr: bool, w=27, l=0.25, coord=90):
 [border(*(paras)) for paras in ((0, 0), (0, 1), (1, 0), (1, 1))]
 
 
-# Functions
-def draw_piece(coords: tuple, who: bool, ln: int):
+# Draw the numbers because apparently a program is bad if the user has to use their mind :'(
+
+t = turtle.Turtle()
+t.hideturtle()
+t.pencolor("white")
+t.fillcolor("white")
+t.color("white")
+t.penup()
+for key in range(1, 10):
+    t.goto(master_coords[key])
+    t.pendown()
+    t.write(str(key), font=("Raleway", 36, "normal"), align="center")
+    t.penup()
+
+
+# Draw Piece Function; literally half of the code.
+def draw_piece(coords: tuple, who: bool, ln: int, ind: int):
     """Draw X if who == True else Draw O"""
+
+    global board
+    if board[ind] != "~":
+        return None
+    board[ind] = who
+
+    global turn
+    turn = not turn
+
+    check()
 
     if who:
 
@@ -78,6 +104,13 @@ def draw_piece(coords: tuple, who: bool, ln: int):
 
             return out
 
+        box = turtle.Turtle()
+        box.speed(0)
+        box.shape("square")
+        box.color("black")
+        box.shapesize(stretch_wid=8, stretch_len=8)
+        box.penup()
+        box.goto(*coords)
         draw_x_line(coords, ln).right(45)
         draw_x_line(coords, ln).left(45)
 
@@ -100,22 +133,26 @@ def draw_piece(coords: tuple, who: bool, ln: int):
         draw_o_part(coords, ln * 0.75, False)
 
 
-# draw_piece((0,0), False, 160)
-# draw_piece((0,0), True, 160)
+def check():
+    for l in wins:  # l is a tuple of win indexes. Ex: (1, 2, 3)
+        if len(set([board[m] for m in l])) == 1 and board[l[0]] != "~":
+            print(f"{board[l[0]]} has won!")
+            wn = turtle.Screen()  # Window
+            wn.title(f"{'X' if board[l[0]] else 'O'} is the winner!")
 
 # Keyboard bindings
 wn.listen()  # Listen for keyboard input.
 wn.onkey(turtle.bye, "q")  # bye bye!
 
-wn.onkeypress(lambda: draw_piece(master_coords[1], True, 160), "1")
-wn.onkeypress(lambda: draw_piece(master_coords[2], False, 160), "2")
-wn.onkeypress(lambda: draw_piece(master_coords[3], True, 160), "3")
-wn.onkeypress(lambda: draw_piece(master_coords[4], False, 160), "4")
-wn.onkeypress(lambda: draw_piece(master_coords[5], True, 160), "5")
-wn.onkeypress(lambda: draw_piece(master_coords[6], False, 160), "6")
-wn.onkeypress(lambda: draw_piece(master_coords[7], True, 160), "7")
-wn.onkeypress(lambda: draw_piece(master_coords[8], False, 160), "8")
-wn.onkeypress(lambda: draw_piece(master_coords[9], True, 160), "9")
+wn.onkeypress(lambda: draw_piece(master_coords[1], turn, 160, 1), "1")
+wn.onkeypress(lambda: draw_piece(master_coords[2], turn, 160, 2), "2")
+wn.onkeypress(lambda: draw_piece(master_coords[3], turn, 160, 3), "3")
+wn.onkeypress(lambda: draw_piece(master_coords[4], turn, 160, 4), "4")
+wn.onkeypress(lambda: draw_piece(master_coords[5], turn, 160, 5), "5")
+wn.onkeypress(lambda: draw_piece(master_coords[6], turn, 160, 6), "6")
+wn.onkeypress(lambda: draw_piece(master_coords[7], turn, 160, 7), "7")
+wn.onkeypress(lambda: draw_piece(master_coords[8], turn, 160, 8), "8")
+wn.onkeypress(lambda: draw_piece(master_coords[9], turn, 160, 9), "9")
 
 
 # Main game loop
