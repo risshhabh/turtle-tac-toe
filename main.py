@@ -30,7 +30,7 @@ wn.setup(width=600, height=600)  # (0, 0) is at the center of the screen.
 wn.tracer(0)  # Max possible speed.
 
 w = 27  # Width
-l = 0.25  # Height
+l = 1  # Height
 
 # Borders
 def border(side: bool, dr: bool, w=27, l=0.25, coord=90):
@@ -136,7 +136,6 @@ def draw_piece(coords: tuple, who: bool, ln: int, ind: int):
 def check():
     for l in wins:  # l is a tuple of win indexes. Ex: (1, 2, 3)
         if len(set([board[m] for m in l])) == 1 and board[l[0]] != "~":
-            print(f"{board[l[0]]} has won!")
             wn = turtle.Screen()  # Window
             wn.title(f"{'X' if board[l[0]] else 'O'} is the winner!")
 
