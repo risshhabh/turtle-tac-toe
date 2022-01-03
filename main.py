@@ -15,6 +15,7 @@ master_coords = {
     9: (180, -180),
 }
 
+# Unnecessary unpacking but my code-format messes everything up.
 wins = (
     *((1, 2, 3), (4, 5, 6), (7, 8, 9)),  # Horizontal
     *((1, 4, 7), (2, 5, 8), (3, 6, 9)),  # Vertical
@@ -46,9 +47,7 @@ def border(side: bool, dr: bool, w=27, l=0.25, coord=90):
     out.speed(0)
     out.shape("square")
     out.color("white")
-    out.shapesize(stretch_wid=w, stretch_len=l) if dr else out.shapesize(
-        stretch_wid=l, stretch_len=w
-    )
+    out.shapesize(stretch_wid=w, stretch_len=l) if dr else out.shapesize(stretch_wid=l, stretch_len=w)
     out.penup()
     mult = 1 if side else -1
     out.goto(*((coord * mult, 0) if dr else (0, coord * mult)))
@@ -56,6 +55,7 @@ def border(side: bool, dr: bool, w=27, l=0.25, coord=90):
     return out
 
 
+# Draw 4 border lines.
 [border(*(paras)) for paras in ((0, 0), (0, 1), (1, 0), (1, 1))]
 
 
