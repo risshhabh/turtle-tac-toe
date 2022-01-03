@@ -11,7 +11,7 @@ Once you win, the title will change from `Tic-Tac-Toe` to `X is the winner!` or 
 
 ***
 
-TODO:
+### TODO:
 - Make the code a bit neater, especially that disgusting bit around line ~150.
 - Get rid of the error after clicking the `q` key which activates `turtle.bye()`.
 - Improve the main loop.
