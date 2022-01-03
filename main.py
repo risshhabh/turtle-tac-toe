@@ -90,7 +90,7 @@ def draw_piece(coords: tuple, who: bool, ln: int):
             out.speed(0)
             out.shape("circle")
             out.color("blue") if colour else out.color("black")
-            out.shapesize(stretch_wid=(in_r / 20), stretch_len=(in_r / 20))
+            out.shapesize(stretch_wid=(in_r / 21), stretch_len=(in_r / 21))
             out.penup()
             out.goto(*coords)
 
@@ -105,10 +105,7 @@ def draw_piece(coords: tuple, who: bool, ln: int):
 
 # Keyboard bindings
 wn.listen()  # Listen for keyboard input.
-wn.onkeypress(turtle.bye, "q")  # bye bye!
-# Using functools.partial
-### wn.onkeypress(partial(func_with_args, arg1, arg2), "q")
-
+wn.onkey(turtle.bye, "q")  # bye bye!
 
 wn.onkeypress(lambda: draw_piece(master_coords[1], True, 160), "1")
 wn.onkeypress(lambda: draw_piece(master_coords[2], False, 160), "2")
@@ -120,15 +117,6 @@ wn.onkeypress(lambda: draw_piece(master_coords[7], True, 160), "7")
 wn.onkeypress(lambda: draw_piece(master_coords[8], False, 160), "8")
 wn.onkeypress(lambda: draw_piece(master_coords[9], True, 160), "9")
 
-
-"""
-r t y & 1 2 3
-f g h & 4 5 6
-v b n & 7 8 9
-"""
-
-
-# wn.onkeypress(turtle.reset, "r") --> Does not work.
 
 # Main game loop
 while True:
