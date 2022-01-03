@@ -140,6 +140,7 @@ def check():
             wn = turtle.Screen()  # Window
             wn.title(f"{'X' if board[l[0]] else 'O'} is the winner!")
 
+
 # Keyboard bindings
 wn.listen()  # Listen for keyboard input.
 wn.onkey(turtle.bye, "q")  # bye bye!
