@@ -1,8 +1,6 @@
 # turtle-tac-toe
 A GUI version of the popular game Tic-Tac-Toe (Also known as Noughts and Crosses).
 
-I showcase the program and the code at https://youtu.be/GXTPL3rhso4.
-
 Pretty simple to play, just run the program and the only controls are the 1-9 keys and the `q` key.
 
 `1-9` to place a piece, it alternates from X and O and is a 2-player-game.
